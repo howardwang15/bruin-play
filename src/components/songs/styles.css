@@ -1,0 +1,30 @@
+table {
+    background-color: white;
+    width: 100%;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.image_containner {
+    height: 200px;
+    width: 200px;
+}
+.image_container img {
+    height: 70%;
+    width: 70%;
+}
+
+.narrow {
+    width: 30px;
+}
+
+.table_header {
+    background-color: aqua;
+    text-align: left;
+    font-family: 'Gill Sans';
+    font-size: large;
+}
+
+.table_row {
+    text-align: left;
+}

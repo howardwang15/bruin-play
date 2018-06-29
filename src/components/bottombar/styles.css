@@ -1,0 +1,19 @@
+.container {
+    background-color: black;
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    bottom: 0;
+}
+
+.container text {
+    font-family: 'Gill Sans';
+    
+}
+
+.text {
+    text-align: left;
+    font-family: 'Gill Sans';
+    color: white;
+    margin-left: 2%;
+}
