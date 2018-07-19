@@ -3,22 +3,7 @@ import './styles.css';
 import BottomBar from '../bottombar/bar';
 import Play from './play.png'
 import Pause from './pause.png'
-
-/*var file_name = '../../Songs.txt';
-var file = new File([""], file_name);
-var song_names = [];
-var artist_names = [];
-file.open('r');
-var flag = 0;
-while (!file.eof) {
-    if (flag % 2) {
-        artist_names.push(file.readln());
-    } 
-    else
-        song_names.push(file.readln()); 
-}
-*/
-
+import { connect } from 'react-redux';
 
 var song_info = [
     {
@@ -50,10 +35,7 @@ var song_info = [
 
 var n_songs = song_info.length;
 
-export default class Songs extends React.Component {
-    
-    
-
+class Songs extends React.Component {
     constructor(props) {
         super(props);
         var songs_playing = [];
@@ -65,14 +47,6 @@ export default class Songs extends React.Component {
             being_played: false,
             posts: []
         };
-    }
-
-    componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
-        .then(data => (
-            this.setState({posts: data})
-        ));
     }
 
     convertTime = (total_seconds) => {
@@ -149,3 +123,9 @@ export default class Songs extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return { ...state };
+}
+
+export default connect(mapStateToProps)(Songs)
