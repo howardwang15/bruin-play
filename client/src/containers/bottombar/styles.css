@@ -1,14 +1,14 @@
 .container {
     background-color: black;
-    width: 100%;
+    width: 100vw;
     height: 70px;
     position: absolute;
     bottom: 0;
 }
 
 .container text {
-    font-family: 'Gill Sans';
-    
+    font-family: 'Gill Sans';   
+    margin-bottom: 10vh;
 }
 
 .text {

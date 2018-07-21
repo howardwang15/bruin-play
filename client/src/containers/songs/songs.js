@@ -1,8 +1,8 @@
 import React from 'react';
 import './styles.css';
 import BottomBar from '../bottombar/bar';
-import Play from './play.png'
-import Pause from './pause.png'
+import Play from './play.png';
+import Pause from './pause.png';
 import { connect } from 'react-redux';
 
 var song_info = [
@@ -84,12 +84,6 @@ class Songs extends React.Component {
     }
 
     render() {
-        const postItems = this.state.posts.map(post => (
-            <div key={post.id}>
-                <h3>{post.title}</h3>
-            </div>
-        ));
-        console.log(postItems[0])
         return (
             <div>
                 <table>
@@ -123,6 +117,7 @@ class Songs extends React.Component {
         );
     }
 }
+
 
 const mapStateToProps = (state) => {
     return { ...state };

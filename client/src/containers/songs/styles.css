@@ -3,6 +3,7 @@ table {
     width: 100%;
     padding-left: 4px;
     padding-right: 4px;
+    min-width: 300px;
 }
 
 .image_containner {
@@ -19,7 +20,7 @@ table {
 }
 
 .table_header {
-    background-color: aqua;
+    background-color: aqua; 
     text-align: left;
     font-family: 'Gill Sans';
     font-size: large;
