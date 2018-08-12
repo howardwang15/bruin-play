@@ -4,6 +4,7 @@ import BottomBar from '../bottombar/bar';
 import Play from './play.png';
 import Pause from './pause.png';
 import { connect } from 'react-redux';
+import { Button } from 'reactstrap';
 
 var song_info = [
     {
@@ -127,6 +128,7 @@ class Songs extends React.Component {
     render() {
         return (
             <div>
+                <Button color='primary'>New Song</Button>
                 <table>
                     <thead>
                         <tr className="table_header">

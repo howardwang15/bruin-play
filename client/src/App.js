@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Songs from './containers/songs'
+import Songs from './containers/songs';
 
 class App extends Component {
   render() {
