@@ -5,7 +5,8 @@ export default (state, action) => {
         default: 
             return {
                 ...state,
-                songs: []
+                songs: [],
+                currentSong: null
             }
     }
 }

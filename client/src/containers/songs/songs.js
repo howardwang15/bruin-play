@@ -9,44 +9,62 @@ var song_info = [
     {
         name: 'Nice For What',
         artist: 'Drake',
-        length: 211
+        length: 211,
+        playing: false
     },
     {
         name: 'Psycho',
         artist: 'Post Malone',
-        length: 221
+        length: 221,
+        playing: false
     },
     {
         name: 'I Like It',
         artist: 'Cardi B',
-        length: 252
+        length: 252,
+        playing: false
     },
     {
         name: 'God\'s Plan',
         artist: 'Drake',
-        length: 188
+        length: 188,
+        playing: false
     },
     {
         name: 'Girls like you',
         artist: 'Maroon 5',
-        length: 236
+        length: 236,
+        playing: false
     }
 ];
 
-var n_songs = song_info.length;
+Object.compare = (obj1, obj2) => {
+    console.log("comparing!");
+    for (let key in obj1) {
+        console.log(key);
+        if (obj1[key] !== obj2[key]) {
+            return false;
+        }
+    }
+    return true;
+}
 
 class Songs extends React.Component {
     constructor(props) {
         super(props);
-        var songs_playing = [];
-        for (let i = 0; i < n_songs; i++)
-            songs_playing.push(false);
-        this.state = {
-            current_song: null,
-            playing: songs_playing,
-            being_played: false,
-            posts: []
-        };
+    }
+
+    componentWillMount() {
+        const songsURL = 'http://localhost:5000';
+        fetch(songsURL)
+        .then(res => res.json())
+        .then(json => console.log(json));
+        this.props.dispatch({
+            type: 'UPDATE_STATE',
+            state: {
+                songs: song_info
+            }
+        });
     }
 
     convertTime = (total_seconds) => {
@@ -57,30 +75,53 @@ class Songs extends React.Component {
         return `${minutes}:${seconds}`;
     }
 
-    playSong = (song, pos) => {
-        var songs_playing = [];
-        for (let i = 0; i < n_songs; i++) 
-            songs_playing.push(this.state.playing[i]); //store old states into new array
 
-        for (let i = 0; i < n_songs; i++) {
-            if (songs_playing[i] && i !== pos) //if another song is being played
-                songs_playing[i] = false; //pause the other song
-        }
-        songs_playing[pos] = !songs_playing[pos]; //toggle the current song
 
-        var played = false;
-        for (let i = 0; i < n_songs; i++) {
-            if (songs_playing[i]) {
-                console.log("name of playing song: " + song_info[i].name);
-                played = true;
-            }
+    playSong = (song, index) => {
+        var songs = this.props.songs.slice();
+        if (this.props.currentSong && Object.compare(song, this.props.currentSong)) {
+            song.playing = false;
+            this.props.dispatch({
+                type: 'UPDATE_STATE',
+                state: {
+                    currentSong: null
+                }
+            });
+            return;
         }
 
-        this.setState({
-            current_song: song,
-            playing: songs_playing,
-            being_played: played
-        });
+        var songAlreadyPlaying = false;
+        for (let i = 0; i < songs.length; i++) {
+            if (songs[i].playing) { 
+                songAlreadyPlaying = true;
+                if (Object.compare(songs[i], song)) {
+                    songs[i].playing = false;   
+                } 
+                else {
+                    console.log('different song so we must switch');
+                    songs[i].playing = false;
+                    song.playing = true; 
+                    for (let j = 0; j < songs.length; j++) {
+                        if (Object.compare(songs[j], song)) {
+                            songs[j].playing = true;
+                            break;
+                        }
+                    }
+                }
+            }   
+        }
+
+        if (!songAlreadyPlaying)
+            song.playing = true;
+
+        if (song.playing) {
+            this.props.dispatch({
+                type: 'UPDATE_STATE',
+                state: {
+                    currentSong: song
+                }
+            });
+        }
     }
 
     render() {
@@ -97,10 +138,10 @@ class Songs extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            song_info.map((song) => 
-                                <tr className="table_row">
+                            this.props.songs.map((song, index) => 
+                                <tr key={index} className="table_row">
                                     <div className="image_container">
-                                        <img src={this.state.playing[song_info.indexOf(song)] ? Pause : Play} 
+                                        <img src={ song.playing ?  Pause : Play  } 
                                             className="narrow" onClick={() => this.playSong(song, song_info.indexOf(song))}
                                             alt="Play"/>
                                     </div>
@@ -112,7 +153,7 @@ class Songs extends React.Component {
                         }
                     </tbody>
                 </table>
-                {this.state.being_played ? <BottomBar song={this.state.current_song} /> : null}
+                {this.props.currentSong ? <BottomBar song={this.props.currentSong} /> : null}
             </div>
         );
     }
