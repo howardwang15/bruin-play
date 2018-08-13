@@ -1,5 +1,7 @@
 const songRoute = require('./song');
+const uploadRoute = require('./upload');
 
 module.exports = {
-    song: songRoute
+    song: songRoute,
+    upload: uploadRoute
 }
