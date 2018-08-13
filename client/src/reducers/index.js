@@ -1,4 +1,5 @@
-import { combineReducers } from 'react-redux';
+import { combineReducers } from 'redux';
 import songs from './songs';
 
-export const rootReducer = combineReducers({ songs });
+const rootReducer = combineReducers({ songs });
+export default rootReducer;

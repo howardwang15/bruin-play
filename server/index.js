@@ -13,7 +13,7 @@ const connection = mongoose.createConnection('mongodb://localhost:/bruin-play');
 let gfs;
 connection.once('open', function() {
     console.log('Connection has been made!');
-    gfs.collection('uploads');
+    //gfs.collection('uploads');
 }).on('error', function(err) {
     console.log('Error while connecting: ', err);
 });

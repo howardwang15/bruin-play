@@ -25,7 +25,7 @@ var storage = new GridFsStorage({
 const upload = multer({ storage })
 
 router.put('/', upload.single('file'), (req, res) => {
-    res.json({ file: req.file });
+    res.json({ file: req.file }); 
 })
 
 router.get('/', (req, res) => {
