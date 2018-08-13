@@ -164,7 +164,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateSongs: (payload) => dispatch(updateSongs(payload))
+        updateSongs: payload => dispatch(updateSongs(payload))
     }
 } 
 

@@ -11,7 +11,6 @@ export const addNewSong = file => {
 }
 
 export const updateSongs = songs => {
-    console.log(songs);
     return {
         type: UPDATE_SONGS,
         payload: songs

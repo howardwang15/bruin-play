@@ -21,7 +21,7 @@ connection.once('open', function() {
 const Song = require('./models').song;
 var MongoClient = require('mongodb').MongoClient;
 
-const port = 5000;
+const port = 4000;
 
 app.use('/', bodyParser.json(), routes.song);
 

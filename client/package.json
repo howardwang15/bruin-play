@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -14,7 +15,7 @@
     "redux-saga": "^0.16.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=8080 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
