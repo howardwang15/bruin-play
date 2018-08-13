@@ -1,4 +1,7 @@
 export const ADD_NEW_SONG = 'ADD_NEW_SONG';
+export const UPDATE_SONGS = 'UPDATE_SONGS';
+
+export const UPDATE = 'UPDATE';
 
 export const addNewSong = file => {
     return {
@@ -6,3 +9,12 @@ export const addNewSong = file => {
         payload: file
     }
 }
+
+export const updateSongs = songs => {
+    console.log(songs);
+    return {
+        type: UPDATE_SONGS,
+        payload: songs
+    }
+}
+

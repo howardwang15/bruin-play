@@ -5,6 +5,7 @@ import Play from './play.png';
 import Pause from './pause.png';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
+import { updateSongs } from '../../actions/songs';
 
 var song_info = [
     {
@@ -57,15 +58,10 @@ class Songs extends React.Component {
 
     componentWillMount() {
         const songsURL = 'http://localhost:5000';
-        fetch(songsURL)
-        .then(res => res.json())
-        .then(json => console.log(json));
-        this.props.dispatch({
-            type: 'UPDATE_STATE',
-            state: {
-                songs: song_info
-            }
-        });
+        // fetch(songsURL)
+        // .then(res => res.json())
+        // .then(json => console.log(json));
+        this.props.updateSongs(song_info);
     }
 
     convertTime = (total_seconds) => {
@@ -126,7 +122,6 @@ class Songs extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <Button color='primary' >New Song</Button>
@@ -141,7 +136,7 @@ class Songs extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            this.props.songs.songs.map((song, index) => 
+                            this.props.songs.data.map((song, index) => 
                                 <tr key={index} className="table_row">
                                     <div className="image_container">
                                         <img src={ song.playing ?  Pause : Play  } 
@@ -163,8 +158,14 @@ class Songs extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return { ...state };
 }
 
-export default connect(mapStateToProps)(Songs)
+const mapDispatchToProps = dispatch => {
+    return {
+        updateSongs: (payload) => dispatch(updateSongs(payload))
+    }
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps)(Songs)
