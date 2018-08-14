@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import './styles.css';
 
-
 class UploadZone extends React.Component {
     onDrop(acceptedFiles, rejectedFiles) {
         var formData = new FormData();
@@ -12,17 +11,10 @@ class UploadZone extends React.Component {
             formData.append('file', file);
         }
         const putURL = 'http://localhost:3000/upload'
-        const body = JSON.stringify({
-            data: formData
-        });
 
         fetch(putURL, {
             method: 'PUT',
-            body,
-            headers: {  
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
+            body: formData,
             credentials: 'include'
         });
     }
