@@ -11,18 +11,19 @@ class UploadZone extends React.Component {
         for (let file of acceptedFiles) {
             formData.append('file', file);
         }
-        const postURL = 'http://localhost:3000/upload'
-        const body = {
-            body: formData,
-            withCredentials: true
-        }
-        axios.put(postURL, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
+        const putURL = 'http://localhost:3000/upload'
+        const body = JSON.stringify({
+            data: formData
+        });
+
+        fetch(putURL, {
+            method: 'PUT',
+            body,
+            headers: {  
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
-            body: {
-                ...body, ...{crossdomain: true}
-            }
+            credentials: 'include'
         });
     }
 
