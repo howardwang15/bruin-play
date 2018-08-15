@@ -5,22 +5,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 
-var storage = new GridFsStorage({
-    url: 'mongodb://localhost:/bruin-play',
-    file: (req, file) => {
-        return new Promise((resolve, reject) => {
-            try {
-                const fileInfo = {
-                    filename: file.originalname,
-                    bucketName: 'uploads'
-                }
-                resolve(fileInfo);
-            } catch (err) {
-                reject(err);
-            }
-        })
-    }
-});
+
 
 const upload = multer({ storage })
 

@@ -5,38 +5,33 @@ import Play from './play.png';
 import Pause from './pause.png';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
-import { updateSongs } from '../../actions/songs';
+import { updateSongs, playSong } from '../../actions/songs';
 
 var song_info = [
     {
         name: 'Nice For What',
         artist: 'Drake',
         length: 211,
-        playing: false
     },
     {
         name: 'Psycho',
         artist: 'Post Malone',
         length: 221,
-        playing: false
     },
     {
         name: 'I Like It',
         artist: 'Cardi B',
         length: 252,
-        playing: false
     },
     {
         name: 'God\'s Plan',
         artist: 'Drake',
         length: 188,
-        playing: false
     },
     {
         name: 'Girls like you',
         artist: 'Maroon 5',
         length: 236,
-        playing: false
     }
 ];
 
@@ -72,9 +67,11 @@ class Songs extends React.Component {
         return `${minutes}:${seconds}`;
     }
 
+    playSong(song) {
+        this.props.playSong(song);
+    }
 
-
-    playSong = (song, index) => {
+    playSon = (song, index) => {
         var songs = this.props.songs.slice();
         if (this.props.currentSong && Object.compare(song, this.props.currentSong)) {
             song.playing = false;
@@ -140,7 +137,7 @@ class Songs extends React.Component {
                                 <tr key={index} className="table_row">
                                     <div className="image_container">
                                         <img src={ song.playing ?  Pause : Play  } 
-                                            className="narrow" onClick={() => this.playSong(song, song_info.indexOf(song))}
+                                            className="narrow" onClick={() => this.playSong(song)}
                                             alt="Play"/>
                                     </div>
                                     <td>{song.name}</td>
@@ -164,7 +161,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateSongs: payload => dispatch(updateSongs(payload))
+        updateSongs: payload => dispatch(updateSongs(payload)),
+        playSong: payload => dispatch(playSong(payload))
     }
 } 
 
