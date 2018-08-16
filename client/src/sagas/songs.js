@@ -9,7 +9,6 @@ function *updateSongs(action) {
 function *playSong(action) {
     const currentSong = yield select(playingSong);
     if (currentSong && action.payload.name === currentSong.name) {
-        console.log('already playing');
         yield put({type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: null }});
     } 
     else {

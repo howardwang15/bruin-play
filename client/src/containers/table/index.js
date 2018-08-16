@@ -35,17 +35,6 @@ var song_info = [
     }
 ];
 
-Object.compare = (obj1, obj2) => {
-    console.log("comparing!");
-    for (let key in obj1) {
-        console.log(key);
-        if (obj1[key] !== obj2[key]) {
-            return false;
-        }
-    }
-    return true;
-}
-
 class Songs extends React.Component {
     constructor(props) {
         super(props);
@@ -67,59 +56,7 @@ class Songs extends React.Component {
         return `${minutes}:${seconds}`;
     }
 
-    playSong(song) {
-        this.props.playSong(song);
-    }
-
-    playSon = (song, index) => {
-        var songs = this.props.songs.slice();
-        if (this.props.currentSong && Object.compare(song, this.props.currentSong)) {
-            song.playing = false;
-            this.props.dispatch({
-                type: 'UPDATE_STATE',
-                state: {
-                    currentSong: null
-                }
-            });
-            return;
-        }
-
-        var songAlreadyPlaying = false;
-        for (let i = 0; i < songs.length; i++) {
-            if (songs[i].playing) { 
-                songAlreadyPlaying = true;
-                if (Object.compare(songs[i], song)) {
-                    songs[i].playing = false;   
-                } 
-                else {
-                    console.log('different song so we must switch');
-                    songs[i].playing = false;
-                    song.playing = true; 
-                    for (let j = 0; j < songs.length; j++) {
-                        if (Object.compare(songs[j], song)) {
-                            songs[j].playing = true;
-                            break;
-                        }
-                    }
-                }
-            }   
-        }
-
-        if (!songAlreadyPlaying)
-            song.playing = true;
-
-        if (song.playing) {
-            this.props.dispatch({
-                type: 'UPDATE_STATE',
-                state: {
-                    currentSong: song
-                }
-            });
-        }
-    }
-
     render() {
-        console.log(this.props.songs.currentPlaying);
         return (
             <div>
                 <Button color='primary' >New Song</Button>
@@ -139,7 +76,7 @@ class Songs extends React.Component {
                                     <div className="image_container">
                                         <img src={ this.props.songs.currentPlaying && this.props.songs.currentPlaying.name === 
                                             song.name ?  Pause : Play  } 
-                                            className="narrow" onClick={() => this.playSong(song)}
+                                            className="narrow" onClick={() => this.props.playSong(song)}
                                             alt="Play"/>
                                     </div>
                                     <td>{song.name}</td>
