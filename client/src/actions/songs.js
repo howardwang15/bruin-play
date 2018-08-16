@@ -3,6 +3,7 @@ export const UPDATE_SONGS = 'UPDATE_SONGS';
 export const PLAY_SONG = 'PLAY_SONG';
 
 export const UPDATE_SUCCEEDED = 'UPDATE_SUCCEEDED';
+export const PLAY_SONG_SUCCEEDED = 'PLAY_SONG_SUCCEEDED';
 
 
 export const addNewSong = file => {

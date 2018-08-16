@@ -1,0 +1,1 @@
+export const playingSong = state => state.songs.currentPlaying;

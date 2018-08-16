@@ -119,6 +119,7 @@ class Songs extends React.Component {
     }
 
     render() {
+        console.log(this.props.songs.currentPlaying);
         return (
             <div>
                 <Button color='primary' >New Song</Button>
@@ -136,7 +137,8 @@ class Songs extends React.Component {
                             this.props.songs.data.map((song, index) => 
                                 <tr key={index} className="table_row">
                                     <div className="image_container">
-                                        <img src={ song.playing ?  Pause : Play  } 
+                                        <img src={ this.props.songs.currentPlaying && this.props.songs.currentPlaying.name === 
+                                            song.name ?  Pause : Play  } 
                                             className="narrow" onClick={() => this.playSong(song)}
                                             alt="Play"/>
                                     </div>
