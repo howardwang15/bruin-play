@@ -13,7 +13,7 @@ function getSong(song) {
 }
 
 function *updateSongs(action) {
-    yield put({ type: UPDATE_SUCCEEDED, payload: action.payload });
+    yield put({ type: UPDATE_SUCCEEDED, payload: { data: action.payload.songs }});
 }
 
 function *playSong(action) {

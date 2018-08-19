@@ -41,11 +41,10 @@ class Songs extends React.Component {
     }
 
     componentWillMount() {
-        const songsURL = 'http://localhost:5000';
-        // fetch(songsURL)
-        // .then(res => res.json())
-        // .then(json => console.log(json));
-        this.props.updateSongs(song_info);
+        const songsURL = 'http://localhost:3000/songs';
+        fetch(songsURL)
+        .then(res => res.json())
+        .then(json => this.props.updateSongs(json));
     }
 
     convertTime = (total_seconds) => {
@@ -81,7 +80,7 @@ class Songs extends React.Component {
                                     </div>
                                     <td>{song.name}</td>
                                     <td>{song.artist}</td>
-                                    <td>{this.convertTime(song.length)}</td>
+                                    <td>{this.convertTime(song.duration)}</td>
                                 </tr>
                             )
                         }

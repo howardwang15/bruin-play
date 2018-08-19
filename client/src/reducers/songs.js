@@ -5,7 +5,7 @@ export default (state = {data: []}, action) => {
         case ADD_NEW_SONG:
             return { ...state, data: action.payload };
         case UPDATE_SUCCEEDED:
-            return { ...state, data: action.payload };
+            return { ...state, ...action.payload };
         case PLAY_SONG_SUCCEEDED:
             return { ...state, ...action.payload };
         default: 
