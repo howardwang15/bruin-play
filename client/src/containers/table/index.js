@@ -58,6 +58,9 @@ class Songs extends React.Component {
     render() {
         return (
             <div>
+                <audio controls>
+                    <source src='https://storage.googleapis.com/howardwang15/BruinPlay/Chandelier.mp3' type='audio/mpeg'/>
+                </audio>
                 <Button color='primary' >New Song</Button>
                 <table>
                     <thead>

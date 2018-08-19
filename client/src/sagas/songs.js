@@ -3,14 +3,16 @@ import { UPDATE_SONGS, ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCC
 import { playingSong } from '../selectors';
 
 function getSong(song) {
-    fetch(`http://localhost:3000/songs?song=${JSON.stringify(song)}`, {
+    fetch('http://localhost:3000/songs', {
+        method: 'POST',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
-        }
+        },
+        body: JSON.stringify({ data: song })
     }) 
-}
+};
 
 function *updateSongs(action) {
     yield put({ type: UPDATE_SUCCEEDED, payload: { data: action.payload.songs }});

@@ -17,13 +17,41 @@ const storage = new Storage({
 })
 const bucket = storage.bucket(process.env.BUCKET);
 const prefix = 'BruinPlay/';
-const options = {
-    prefix,
-};
 
 router.put('/', (req, res) => {
     res.json({ file: req.file }); 
-})
+});
+
+router.post('/', (req, res) => {
+    req.body.data.name += '.mp3';
+    console.log(req.body.data.name);
+    const options = { prefix };
+    bucket.getFiles(options).then(results => {
+        const files = results[0];
+        let fileName;
+        let foundFile;
+        for (let file of files) {
+            fileName = file.name.split('/');
+            fileName.shift();
+            fileName = fileName.join();
+            if (fileName === '') {
+                continue;
+            }
+            if (fileName === req.body.data.name) {
+                foundFile = file;
+                break;
+            }
+        }
+        console.log(foundFile.name);
+        foundFile.createReadStream().on('error', (err) => {
+            console.log(err);
+        }).on('response', (res) => {
+        }).on('end', () => {
+            console.log('finished creating the stream!');
+        }).pipe(fs.createWriteStream('../temp.mp3'));
+    })
+});
+//getFilesStream()
 
 router.get('/', (req, res) => { 
     MongoClient.connect(process.env.MONGO_URL, (err, database) => {
@@ -37,7 +65,6 @@ router.get('/', (req, res) => {
                 console.log(err);
                 return res.sendStatus(400);
             }
-            console.log(results);
             database.close();
             const data = {
                 songs: results
@@ -45,7 +72,10 @@ router.get('/', (req, res) => {
             return res.status(200).send(data);
         });
     });
-    // bucket.getFiles(options).then(results => {
+    
+});
+
+// bucket.getFiles(options).then(results => {
     //     const files = results[0];
     //     files.forEach(file => {
     //         console.log(file);
@@ -60,6 +90,4 @@ router.get('/', (req, res) => {
     // }).on('end', () => {
     //     console.log('finished getting the file!');
     // }).pipe(fs.createWriteStream('../temp.mp3'));
-});
-
 module.exports = router;

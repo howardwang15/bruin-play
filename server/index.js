@@ -14,7 +14,7 @@ const origins = [
 ]
 
 app.use(cors({ origin: origins, credentials: true }));
-app.use('/songs', routes.song);
+app.use('/songs', bodyParser.json(), routes.song);
 app.use('/upload', bodyParser.json(), routes.upload);
 
 
