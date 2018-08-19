@@ -6,6 +6,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const MongoClient = require('mongodb').MongoClient;
 const memoryStorage = multer.memoryStorage;
+const fs = require('fs');
 require('dotenv').config();
 
 const mongouri = 'mongodb://howardwang15:howardwang2000@ds121982.mlab.com:21982/bruin-play';
@@ -16,29 +17,12 @@ mongoose.connect(mongouri, function(err) {
 
 
 const storage = require('@google-cloud/storage');
-const songDataID = 'bruin-play-213603';
 const googleCloudStorage = new storage({
-    projectId: songDataID,
+    projectId: process.env.PROJECT_ID,
     keyFileName: '../BruinPlay-8effa77fd92c.json'
 });
-const bucket = googleCloudStorage.bucket('howardwang15');
+const bucket = googleCloudStorage.bucket(process.env.BUCKET);
 
-// const storage = new GridFsStorage({
-//     url: mongouri,
-//     file: (req, file) => {
-//         return new Promise((resolve, reject) => {
-//             try {
-//                 const fileInfo = {
-//                     filename: file.originalname,
-//                     bucketName: 'uploads'
-//                 }
-//                 resolve(fileInfo);
-//             } catch (err) {
-//                 reject(err);
-//             }
-//         });
-//     }   
-// });
 
 const upload = multer({ 
     storage: memoryStorage(),
@@ -53,11 +37,21 @@ const upload = multer({
 
 
 router.put('/', upload.single('file'), (req, res)  => {
+    bucket.upload('./BruinPlay-8effa77fd92c.json', function(err, file, res) {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(400);
+        } else {
+            console.log(file);
+            return res.sendStatus(200);
+        }
+    });
+    return;
     const uploaded = req.file;
+    console.log(uploaded);
     const songsURI = 'mongodb://howardwang15:howardwang2000@ds123562.mlab.com:23562/bruin-play-songs';
 
     const blob = bucket.file(req.file.originalname);
-    console.log(blob);
     const blobStream = blob.createWriteStream({
         metadata: {
             contentType: req.file.mimetype
@@ -73,7 +67,11 @@ router.put('/', upload.single('file'), (req, res)  => {
             res.status(200).send('IT WORKED!!!');
         });
     });
-    blobStream.end(req.file.buffer);
+    try {
+        blobStream.end(req.file.buffer);
+    } catch (err) {
+        throw new Error(err);
+    }
 });
 
 module.exports = router;

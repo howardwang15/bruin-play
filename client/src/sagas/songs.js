@@ -2,12 +2,23 @@ import { put, takeLatest, select } from 'redux-saga/effects';
 import { UPDATE_SONGS, ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED } from '../actions/songs';
 import { playingSong } from '../selectors';
 
+function getSong(song) {
+    fetch(`http://localhost:3000/songs?song=${JSON.stringify(song)}`, {
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }) 
+}
+
 function *updateSongs(action) {
     yield put({ type: UPDATE_SUCCEEDED, payload: action.payload });
 }
 
 function *playSong(action) {
     const currentSong = yield select(playingSong);
+    getSong(action.payload);
     if (currentSong && action.payload.name === currentSong.name) {
         yield put({type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: null }});
     } 
