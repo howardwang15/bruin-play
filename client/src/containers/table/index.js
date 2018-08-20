@@ -1,41 +1,12 @@
 import React from 'react';
 import './styles.css';
-import BottomBar from '../bottombar';
 import Play from './play.png';
 import Pause from './pause.png';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import { updateSongs, playSong } from '../../actions/songs';
 
-var song_info = [
-    {
-        name: 'Nice For What',
-        artist: 'Drake',
-        length: 211,
-    },
-    {
-        name: 'Psycho',
-        artist: 'Post Malone',
-        length: 221,
-    },
-    {
-        name: 'I Like It',
-        artist: 'Cardi B',
-        length: 252,
-    },
-    {
-        name: 'God\'s Plan',
-        artist: 'Drake',
-        length: 188,
-    },
-    {
-        name: 'Girls like you',
-        artist: 'Maroon 5',
-        length: 236,
-    }
-];
-
-class Songs extends React.Component {
+class Table extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -58,10 +29,7 @@ class Songs extends React.Component {
     render() {
         return (
             <div>
-                <audio controls>
-                    <source src='https://storage.googleapis.com/howardwang15/BruinPlay/Chandelier.mp3' type='audio/mpeg'/>
-                </audio>
-                <Button color='primary' >New Song</Button>
+                <Button color='primary'>New Song</Button>
                 <table>
                     <thead>
                         <tr className="table_header">
@@ -89,7 +57,6 @@ class Songs extends React.Component {
                         }
                     </tbody>
                 </table>
-                {this.props.currentSong ? <BottomBar song={this.props.currentSong} /> : null}
             </div>
         );
     }
@@ -107,4 +74,4 @@ const mapDispatchToProps = dispatch => {
     }
 } 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Songs)
+export default connect(mapStateToProps, mapDispatchToProps)(Table)

@@ -1,6 +1,6 @@
 import { ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG_SUCCEEDED } from '../actions/songs'; 
 
-export default (state = {data: []}, action) => {
+export default (state = { data: [] }, action) => {
     switch (action.type) {
         case ADD_NEW_SONG:
             return { ...state, data: action.payload };

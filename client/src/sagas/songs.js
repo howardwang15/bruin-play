@@ -1,4 +1,4 @@
-import { put, takeLatest, select } from 'redux-saga/effects';
+import { put, takeLatest, select, all } from 'redux-saga/effects';
 import { UPDATE_SONGS, ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED } from '../actions/songs';
 import { playingSong } from '../selectors';
 
@@ -20,12 +20,14 @@ function *updateSongs(action) {
 
 function *playSong(action) {
     const currentSong = yield select(playingSong);
-    getSong(action.payload);
+    const name = action.payload.name.replace(/\s+/g, '') + '.mp3';
+    const url = `https://storage.googleapis.com/howardwang15/BruinPlay/${name}`;
     if (currentSong && action.payload.name === currentSong.name) {
-        yield put({type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: null }});
+        action.payload;
+        yield put({type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: null, url: null }});
     } 
     else {
-        yield put({ type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: action.payload }})
+        yield all([put({ type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: null, url: null}}), put({ type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: action.payload, url }})]);
     }
 }
 

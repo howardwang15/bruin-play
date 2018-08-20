@@ -1,15 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './styles.css';
+
 
 class BottomBar extends React.Component {
     render() {
         return (
             <div className="container">
-                <p className="text">{this.props.song.name}</p>
-                <p className="text">{this.props.song.artist}</p>
+                <audio controls autoPlay>
+                    <source src={this.props.songs.url} type='audio/mpeg'></source>
+                </audio>
             </div>
         )
     }
 }
 
-export default BottomBar;
+const mapStateToProps = state => {
+    return { ...state };
+}
+
+export default connect(mapStateToProps)(BottomBar);
