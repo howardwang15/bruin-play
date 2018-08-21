@@ -4,13 +4,18 @@ import './styles.css';
 
 
 class BottomBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            play: false
+        };
+    }
+
     render() {
         return (
-            <div className="container">
-                <audio controls autoPlay>
-                    <source src={this.props.songs.url} type='audio/mpeg'></source>
-                </audio>
-            </div>
+            <audio controls controlsList='nodownload' autoPlay className='container'>
+                <source src={this.props.songs.url} type='audio/mpeg'></source>
+            </audio>
         )
     }
 }

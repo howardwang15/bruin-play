@@ -6,9 +6,12 @@ table {
     min-width: 300px;
 }
 
-.image_containner {
-    height: 200px;
-    width: 200px;
+.imageContainer {
+    height: 2vw;
+    width: 2vh;
+    display: flex;
+    align-content: center;
+    justify-content: center;
 }
 .image_container img {
     height: 70%;
@@ -19,11 +22,15 @@ table {
     width: 30px;
 }
 
-.table_header {
+.tableHeader {
     background-color: aqua; 
-    text-align: left;
+    text-align: center;
     font-family: 'Gill Sans';
     font-size: large;
+}
+
+.cell {
+    font-size: 20px
 }
 
 .table_row {

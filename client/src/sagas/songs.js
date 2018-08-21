@@ -23,11 +23,14 @@ function *playSong(action) {
     const name = action.payload.name.replace(/\s+/g, '') + '.mp3';
     const url = `https://storage.googleapis.com/howardwang15/BruinPlay/${name}`;
     if (currentSong && action.payload.name === currentSong.name) {
-        action.payload;
         yield put({type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: null, url: null }});
     } 
     else {
-        yield all([put({ type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: null, url: null}}), put({ type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: action.payload, url }})]);
+        const temp = document.querySelector('audio');
+        if (temp) {
+            temp.pause();
+        }
+        yield put({ type: PLAY_SONG_SUCCEEDED, payload: { currentPlaying: action.payload, url }});
     }
 }
 
