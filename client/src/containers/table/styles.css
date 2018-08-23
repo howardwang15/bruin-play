@@ -1,25 +1,18 @@
 table {
-    background-color: white;
-    width: 100%;
-    padding-left: 4px;
-    padding-right: 4px;
-    min-width: 300px;
+    table-layout: fixed
 }
 
-.imageContainer {
-    height: 2vw;
-    width: 2vh;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-}
 .image_container img {
     height: 70%;
     width: 70%;
 }
 
+.actionButton {
+    width: 30px
+}
+
 .narrow {
-    width: 30px;
+    width: 50px;
 }
 
 .tableHeader {
@@ -27,6 +20,15 @@ table {
     text-align: center;
     font-family: 'Gill Sans';
     font-size: large;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.narrow {
+    width: 30px
 }
 
 .cell {
