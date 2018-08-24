@@ -23,7 +23,7 @@ export const updateSongs = songs => {
 
 export const downloadSong = song => {
     return {
-        type: UPDATE_SONGS,
+        type: DOWNLOAD_SONG,
         payload: song
     };
 }

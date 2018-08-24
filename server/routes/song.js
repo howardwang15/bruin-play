@@ -23,8 +23,9 @@ router.put('/', (req, res) => {
 });
 
 router.get('/download', (req, res) => {
-    req.body.data.name += '.mp3';
-    console.log(req.body.data.name);
+    const song = JSON.parse(req.query.song);
+    let name = song.name;
+    name = name.replace(/\s+/g, '') + '.mp3';
     const options = { prefix };
     bucket.getFiles(options).then(results => {
         const files = results[0];
@@ -37,18 +38,19 @@ router.get('/download', (req, res) => {
             if (fileName === '') {
                 continue;
             }
-            if (fileName === req.body.data.name) {
+            if (fileName === name) {
                 foundFile = file;
                 break;
             }
         }
+        console.clear();
         console.log(foundFile.name);
         foundFile.createReadStream().on('error', (err) => {
             console.log(err);
         }).on('response', (res) => {
         }).on('end', () => {
             console.log('finished creating the stream!');
-        }).pipe(fs.createWriteStream('../temp.mp3'));
+        }).pipe(res);
     })
 });
 //getFilesStream()

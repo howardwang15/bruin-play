@@ -1,6 +1,8 @@
-import { put, takeLatest, select, all } from 'redux-saga/effects';
+import { put, takeLatest, select, all, call } from 'redux-saga/effects';
 import { UPDATE_SONGS, ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED, DOWNLOAD_SONG, DOWNLOAD_SUCCEEDED } from '../actions/songs';
 import { playingSong } from '../selectors';
+import downloadFile from 'downloadjs';
+
 
 function getSong(song) {
     fetch('http://localhost:3000/songs', {
@@ -13,6 +15,16 @@ function getSong(song) {
         body: JSON.stringify({ data: song })
     }) 
 };
+
+function download(song) {
+    return fetch(`http://localhost:3000/songs/download?song=${JSON.stringify(song)}`, {
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    });
+}
 
 function *updateSongs(action) {
     yield put({ type: UPDATE_SUCCEEDED, payload: { data: action.payload.songs }});
@@ -35,9 +47,8 @@ function *playSong(action) {
 }
 
 function *downloadSong(action) {
-    const name = action.payload.name;
-    console.log(name);
-    //await fetch('http://localhost:3000/songs/download')
+    const res = yield call(download, action.payload);
+    res.blob().then(blob => downloadFile(blob, action.payload.name + '.mp3'));
 }
 
 export default function *songsSaga() {

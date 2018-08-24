@@ -7,9 +7,8 @@ export default (state = { data: [] }, action) => {
         case UPDATE_SUCCEEDED:
             return { ...state, ...action.payload };
         case PLAY_SONG_SUCCEEDED:
-            console.log(action.payload.currentPlaying);
             return { ...state, ...action.payload };
         default: 
-            return { ...state, data: []};
+            return state;
     }
 }

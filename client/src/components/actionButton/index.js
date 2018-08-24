@@ -21,11 +21,9 @@ class ActionButton extends React.Component {
     }
 
     render() {
-        console.log(this.props.song);
-        return this.state.download ? (
+        return this.state.download ? 
             <img src={Download} width='15%' onClick={() => this.props.downloadSong(this.props.song)}></img>
-        ) : 
-        <img src={Dots} width='15%' onClick={() => this.toggle()}></img>
+        : <img src={Dots} width='15%' onClick={() => this.toggle()}></img>
     }
 }
 
