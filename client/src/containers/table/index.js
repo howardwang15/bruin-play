@@ -5,7 +5,7 @@ import Pause from '../../resources/pause.png';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import ActionButton from '../../components/actionButton';
-import { updateSongs, playSong, downloadSong } from '../../actions/songs';
+import { updateSongs, playSong, downloadSong, sortSongs } from '../../actions/songs';
 
 class SongsTable extends React.Component {
     constructor(props) {
@@ -44,8 +44,8 @@ class SongsTable extends React.Component {
                     <thead>
                         <tr className="tableHeader">
                             <th className='narrow'></th>
-                            <th className='col-md-2'><b>SONG</b></th>
-                            <th className='col-md-2'><b>ARTIST</b></th>
+                            <th className='col-md-2' onClick={() => this.props.sortSongs('name')}><b>SONG</b></th>
+                            <th className='col-md-2' onClick={() => this.props.sortSongs('artist')}><b>ARTIST</b></th>
                             <th className='col-md-2'><b>DURATION</b></th>
                             <th className='col-md-2'></th>
                         </tr>
@@ -84,7 +84,8 @@ const mapDispatchToProps = dispatch => {
     return {
         updateSongs: songs => dispatch(updateSongs(songs)),
         playSong: song => dispatch(playSong(song)),
-        downloadSong: song => dispatch(downloadSong(song))
+        downloadSong: song => dispatch(downloadSong(song)),
+        sortSongs: method => dispatch(sortSongs(method))
     }
 } 
 

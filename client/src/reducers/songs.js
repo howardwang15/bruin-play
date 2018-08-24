@@ -1,4 +1,4 @@
-import { ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG_SUCCEEDED } from '../actions/songs'; 
+import { ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG_SUCCEEDED, SORT_SONGS_SUCCEEDED } from '../actions/songs'; 
 
 export default (state = { data: [] }, action) => {
     switch (action.type) {
@@ -7,6 +7,8 @@ export default (state = { data: [] }, action) => {
         case UPDATE_SUCCEEDED:
             return { ...state, ...action.payload };
         case PLAY_SONG_SUCCEEDED:
+            return { ...state, ...action.payload };
+        case SORT_SONGS_SUCCEEDED:
             return { ...state, ...action.payload };
         default: 
             return state;

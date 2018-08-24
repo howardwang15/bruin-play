@@ -1,6 +1,6 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { UPDATE_SONGS, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED, DOWNLOAD_SONG   } from '../actions/songs';
-import { playingSong } from '../selectors';
+import { UPDATE_SONGS, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED, DOWNLOAD_SONG, SORT_SONGS, SORT_SONGS_SUCCEEDED } from '../actions/songs';
+import * as selectors from '../selectors';
 import downloadFile from 'downloadjs';
 
 function download(song) {
@@ -18,7 +18,7 @@ function *updateSongs(action) {
 }
 
 function *playSong(action) {
-    const currentSong = yield select(playingSong);
+    const currentSong = yield select(selectors.playingSong);
     const name = action.payload.name.replace(/\s+/g, '') + '.mp3';
     const url = `https://storage.googleapis.com/howardwang15/BruinPlay/${name}`;
     if (currentSong && action.payload.name === currentSong.name) {
@@ -38,8 +38,40 @@ function *downloadSong(action) {
     res.blob().then(blob => downloadFile(blob, action.payload.name + '.mp3'));
 }
 
+function *sortSongs(action) {
+    const data = yield select(selectors.data);
+    switch (action.payload) {
+        case 'name':
+            data.sort((a, b) => {
+                if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
+                    return -1;
+                } else if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+            break;
+        case 'artist':
+            data.sort((a, b) => {
+                if (a.artist.toLocaleLowerCase() < b.artist.toLocaleLowerCase()) {
+                    return -1;
+                } else if (a.artist.toLocaleLowerCase() > b.artist.toLocaleLowerCase()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+            break;
+        default:
+            break;
+    }   
+    yield put({ type: SORT_SONGS_SUCCEEDED, payload: {data} })
+}
+
 export default function *songsSaga() {
     yield takeLatest(UPDATE_SONGS, updateSongs);
     yield takeLatest(PLAY_SONG, playSong);
     yield takeLatest(DOWNLOAD_SONG, downloadSong);
+    yield takeLatest(SORT_SONGS, sortSongs);
 }
