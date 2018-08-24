@@ -5,9 +5,24 @@ import Pause from '../../resources/pause.png';
 import Dots from '../../resources/three-dots.png';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import { updateSongs, playSong } from '../../actions/songs';
+import ActionButton from '../../components/actionButton';
+import { Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
+import { updateSongs, playSong, downloadSong } from '../../actions/songs';
 
 class SongsTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dropdownOpened: false
+        };
+    }
+
+    toggle() {
+        this.setState({
+            dropdownOpened: !this.state.dropdownOpened
+        });
+    }
+
     convertTime = (total_seconds) => {
         var minutes = Math.floor(total_seconds / 60);
         var seconds = total_seconds - minutes * 60;
@@ -27,7 +42,7 @@ class SongsTable extends React.Component {
         return (
             <div>
                 <Button variant='contained'>New Song</Button>
-                <table className='table'>
+                <table className='table table-striped'>
                     <thead>
                         <tr className="tableHeader">
                             <th className='narrow'></th>
@@ -50,7 +65,8 @@ class SongsTable extends React.Component {
                                     <td className='col-md-2'>{song.artist}</td>
                                     <td className='col-md-2'>{this.convertTime(song.duration)}</td>
                                     <td className='col-md-2'>
-                                        <img src={Dots} style={{width: '20%'}}></img>
+                                        {/* <img src={Dots} style={{width: '20%'}} onClick={() => this.toggle()}></img> */}
+                                        <ActionButton song={song}/>
                                     </td>
                                 </tr>
                             )
@@ -69,8 +85,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateSongs: payload => dispatch(updateSongs(payload)),
-        playSong: payload => dispatch(playSong(payload))
+        updateSongs: songs => dispatch(updateSongs(songs)),
+        playSong: song => dispatch(playSong(song)),
+        downloadSong: song => dispatch(downloadSong(song))
     }
 } 
 

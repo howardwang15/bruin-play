@@ -1,5 +1,5 @@
 import { put, takeLatest, select, all } from 'redux-saga/effects';
-import { UPDATE_SONGS, ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED } from '../actions/songs';
+import { UPDATE_SONGS, ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED, DOWNLOAD_SONG, DOWNLOAD_SUCCEEDED } from '../actions/songs';
 import { playingSong } from '../selectors';
 
 function getSong(song) {
@@ -34,7 +34,14 @@ function *playSong(action) {
     }
 }
 
+function *downloadSong(action) {
+    const name = action.payload.name;
+    console.log(name);
+    //await fetch('http://localhost:3000/songs/download')
+}
+
 export default function *songsSaga() {
     yield takeLatest(UPDATE_SONGS, updateSongs);
     yield takeLatest(PLAY_SONG, playSong);
+    yield takeLatest(DOWNLOAD_SONG, downloadSong);
 }

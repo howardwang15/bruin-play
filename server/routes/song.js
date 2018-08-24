@@ -22,7 +22,7 @@ router.put('/', (req, res) => {
     res.json({ file: req.file }); 
 });
 
-router.post('/', (req, res) => {
+router.get('/download', (req, res) => {
     req.body.data.name += '.mp3';
     console.log(req.body.data.name);
     const options = { prefix };

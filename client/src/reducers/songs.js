@@ -10,6 +10,6 @@ export default (state = { data: [] }, action) => {
             console.log(action.payload.currentPlaying);
             return { ...state, ...action.payload };
         default: 
-            return state;
+            return { ...state, data: []};
     }
 }
