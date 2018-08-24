@@ -1,7 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import './styles.css';
 
 class UploadZone extends React.Component {

@@ -1,20 +1,7 @@
-import { put, takeLatest, select, all, call } from 'redux-saga/effects';
-import { UPDATE_SONGS, ADD_NEW_SONG, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED, DOWNLOAD_SONG, DOWNLOAD_SUCCEEDED } from '../actions/songs';
+import { put, takeLatest, select, call } from 'redux-saga/effects';
+import { UPDATE_SONGS, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED, DOWNLOAD_SONG   } from '../actions/songs';
 import { playingSong } from '../selectors';
 import downloadFile from 'downloadjs';
-
-
-function getSong(song) {
-    fetch('http://localhost:3000/songs', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({ data: song })
-    }) 
-};
 
 function download(song) {
     return fetch(`http://localhost:3000/songs/download?song=${JSON.stringify(song)}`, {

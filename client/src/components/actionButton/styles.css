@@ -1,0 +1,27 @@
+.dropdown {
+    position: relative;
+    /*display: inline-block;*/
+    float: left;
+}
+
+.shield {
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    visibility: visible;
+    top: 0;
+    left: 0;
+}
+
+.image {
+    z-index: 999;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.dropdown-content {
+    position: relative;
+    z-index: 1;
+    float: left;
+}

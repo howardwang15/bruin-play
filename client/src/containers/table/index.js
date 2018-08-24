@@ -2,11 +2,9 @@ import React from 'react';
 import './styles.css';
 import Play from '../../resources/play.png';
 import Pause from '../../resources/pause.png';
-import Dots from '../../resources/three-dots.png';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import ActionButton from '../../components/actionButton';
-import { Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import { updateSongs, playSong, downloadSong } from '../../actions/songs';
 
 class SongsTable extends React.Component {
@@ -64,8 +62,7 @@ class SongsTable extends React.Component {
                                     <td className='col-md-2'>{song.name}</td>
                                     <td className='col-md-2'>{song.artist}</td>
                                     <td className='col-md-2'>{this.convertTime(song.duration)}</td>
-                                    <td className='col-md-2'>
-                                        {/* <img src={Dots} style={{width: '20%'}} onClick={() => this.toggle()}></img> */}
+                                    <td>
                                         <ActionButton song={song}/>
                                     </td>
                                 </tr>

@@ -14,16 +14,31 @@ class ActionButton extends React.Component {
         this.toggle = this.toggle.bind(this);
     }
 
-    toggle() {
+    toggle(e) {
+        //e.stopPropagation();
         this.setState({
             download: !this.state.download
         });
     }
 
+    reset() {
+        this.setState({
+            download: false
+        });
+    }
+
     render() {
-        return this.state.download ? 
-            <img src={Download} width='15%' onClick={() => this.props.downloadSong(this.props.song)}></img>
-        : <img src={Dots} width='15%' onClick={() => this.toggle()}></img>
+        return this.state.download ? (
+            <div>
+                <div className='shield' onClick={() => this.reset()}></div>
+                <img src={Download} width='15%' onClick={(e) => this.props.downloadSong(this.props.song, e)}></img>
+            </div>
+        )
+        : (
+            <div>
+                <img src={Dots} width='15%' onClick={(e) => this.toggle(e)} className='image'></img>
+            </div>
+        )
     }
 }
 
