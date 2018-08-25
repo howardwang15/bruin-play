@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import Table from './containers/table';
 import Dropzone from './containers/dropzone';
 import Bottombar from './containers/bottombar';
-import { connect } from 'react-redux';
+import Spinner from './components/spinner';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div>
