@@ -1,11 +1,10 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { UPDATE_SONGS, UPDATE_SUCCEEDED, PLAY_SONG, PLAY_SONG_SUCCEEDED, DOWNLOAD_SONG, SORT_SONGS, SORT_SONGS_SUCCEEDED } from '../actions/songs';
-import { TOGGLE_SPINNER, TOGGLE_SPINNER_SUCCEEDED } from '../actions/spinner';
 import * as selectors from '../selectors';
-import downloadFile from 'downloadjs';
-import { toggleSpiner } from '../sagas/spinner';
+import download from 'downloadjs';
+import { toggleSpiner } from './spinner';
 
-function download(song) {
+function getSong(song) {
     return fetch(`http://localhost:3000/songs/download?song=${JSON.stringify(song)}`, {
         credentials: 'include',
         headers: {
@@ -35,17 +34,16 @@ function *playSong(action) {
     }
 }
 
+function *downloadBlob(res, name) {
+    const blob = yield res.blob();
+    download(blob, name + '.mp3');
+}
+
 function *downloadSong(action) {
-    console.log('downloading');
     yield call(toggleSpiner);
-    const spinner = yield select(selectors.spinner);
-    console.log(spinner);
-    console.log('put spinner on');
-    const res = yield call(download, action.payload);
-    res.blob().then(blob => {
-        downloadFile(blob, action.payload.name + '.mp3')
-        call(toggleSpiner);
-    });
+    const res = yield call(getSong, action.payload);
+    yield call(downloadBlob, res, action.payload.name);
+    yield call(toggleSpiner);
 }
 
 function *sortSongs(action) {
