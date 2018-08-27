@@ -14,8 +14,7 @@ class ActionButton extends React.Component {
         this.toggle = this.toggle.bind(this);
     }
 
-    toggle(e) {
-        //e.stopPropagation();
+    toggle() {
         this.setState({
             download: !this.state.download
         });
@@ -31,7 +30,7 @@ class ActionButton extends React.Component {
         return this.state.download ? (
             <div>
                 <div className='shield' onClick={() => this.reset()}></div>
-                <img src={Download} width='15%' onClick={(e) => this.props.downloadSong(this.props.song, e)}></img>
+                <img src={Download} width='15%' onClick={(e) => this.props.downloadSong(this.props.song)} className='image'></img>
             </div>
         )
         : (
@@ -48,7 +47,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        downloadSong: song => dispatch(downloadSong(song))
+        downloadSong: (song) => dispatch(downloadSong(song))
     }
 }
 

@@ -12,6 +12,7 @@ class App extends React.Component {
         <h1>Bruin Play</h1>
         <Dropzone />
         <Table />
+        { this.props.spinner.on ? <Spinner /> : null }
         { this.props.songs.currentPlaying ? <Bottombar /> : null }
       </div>
     );

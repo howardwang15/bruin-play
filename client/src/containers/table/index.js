@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import ActionButton from '../../components/actionButton';
 import { updateSongs, playSong, downloadSong, sortSongs } from '../../actions/songs';
+import { toggleSpinner } from '../../actions/spinner';
 
 class SongsTable extends React.Component {
     constructor(props) {
@@ -85,7 +86,8 @@ const mapDispatchToProps = dispatch => {
         updateSongs: songs => dispatch(updateSongs(songs)),
         playSong: song => dispatch(playSong(song)),
         downloadSong: song => dispatch(downloadSong(song)),
-        sortSongs: method => dispatch(sortSongs(method))
+        sortSongs: method => dispatch(sortSongs(method)),
+        toggleSpinner: () => dispatch(toggleSpinner())
     }
 } 
 
