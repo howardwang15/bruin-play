@@ -10,7 +10,6 @@ const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 
 
-
 const storage = new Storage({
     projectId: process.env.PROJECT_ID,
     keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
