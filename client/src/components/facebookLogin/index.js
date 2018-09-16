@@ -21,7 +21,7 @@ class FBLogin extends React.Component {
     render() {
         return (
             <FacebookLogin 
-                appId='160670254805959' 
+                appId=''
                 autoLoad={true} 
                 fields='name,email,picture' 
                 onClick={this.componentClicked} 
