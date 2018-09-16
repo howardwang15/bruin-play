@@ -10,7 +10,8 @@ const Song = require('./models').song;
 const port = 3000;
 const origins = [
     'http://localhost:8080',
-    'http://localhost:9000'
+    'http://localhost:9000',
+    'https://localhost:9000'
 ]
 
 app.use(cors({ origin: origins, credentials: true }));

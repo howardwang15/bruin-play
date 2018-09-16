@@ -8,6 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import registerServiceWorker from './registerServiceWorker';
 import songsSaga from './sagas/songs';
 import spinnerSaga from './sagas/spinner';
+import authSaga from './sagas/auth';
 
 const sagaMiddleware = createSagaMiddleware();
 const root = (
@@ -15,8 +16,10 @@ const root = (
         <App />
     </Provider>
 )
+
 sagaMiddleware.run(songsSaga);
 sagaMiddleware.run(spinnerSaga);
+sagaMiddleware.run(authSaga);
 
 ReactDOM.render(root, document.getElementById('root'));
 
