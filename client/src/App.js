@@ -10,6 +10,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        {/* { this.props.auth.loggedIn ?  }  */}
         <h1>Bruin Play</h1>
         <FacebookLogin />
         {/* <Dropzone /> */}
