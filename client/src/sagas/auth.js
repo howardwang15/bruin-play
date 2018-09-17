@@ -2,6 +2,7 @@ import { LOGIN, LOGIN_SUCCEEDED, LOGIN_FAILED } from '../actions/auth';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function *login(action) {
+    console.log(action.payload);
     if (action.payload) {
         yield put({ type: LOGIN_SUCCEEDED, payload: { loggedIn: true }});
     } else {
