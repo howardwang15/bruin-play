@@ -1,5 +1,7 @@
 import React from 'react';
 import GoogleLogin from 'react-google-login';
+import { connect } from 'react-redux';
+import { login } from '../../actions/auth';
 
 class GoogleClientLogin extends React.Component {
     constructor() {
@@ -8,11 +10,7 @@ class GoogleClientLogin extends React.Component {
     }
     
     login(response) {
-        try {
-            console.log(response);
-        } catch (err) {
-            console.log(err);
-        }
+        this.props.login(response);
     }
 
     render() {
@@ -26,4 +24,14 @@ class GoogleClientLogin extends React.Component {
     }
 }
 
-export default GoogleClientLogin;
+const mapStateToProps = state => {
+    return { ...state };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        login: user => dispatch(login(user))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleClientLogin);
