@@ -15,6 +15,7 @@ class FBLogin extends React.Component {
     }
 
     callback(response) {
+        response.method = 'facebook';
         this.props.login(response);
     }
 
