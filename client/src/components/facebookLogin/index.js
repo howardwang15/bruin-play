@@ -11,7 +11,7 @@ class FBLogin extends React.Component {
     }
 
     componentClicked() {
-        console.log('clicked');
+        
     }
 
     callback(response) {
@@ -22,7 +22,7 @@ class FBLogin extends React.Component {
         return (
             <FacebookLogin 
                 appId={process.env.REACT_APP_FACEBOOK_ID}
-                autoLoad={true} 
+                autoLoad={false} 
                 fields='name,email,picture' 
                 onClick={this.componentClicked} 
                 callback={this.callback} />

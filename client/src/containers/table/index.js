@@ -40,6 +40,7 @@ class SongsTable extends React.Component {
     render() {
         return (
             <div>
+                <Button onClick={() => {}}>LOGOUT</Button>
                 <Button variant='contained'>New Song</Button>
                 <table className='table table-striped'>
                     <thead>
