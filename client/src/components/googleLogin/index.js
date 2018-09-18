@@ -10,6 +10,7 @@ class GoogleClientLogin extends React.Component {
     }
     
     login(response) {
+        response.method = 'google';
         this.props.login(response);
     }
 

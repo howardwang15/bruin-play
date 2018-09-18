@@ -30,11 +30,11 @@ class SongsTable extends React.Component {
         return `${minutes}:${seconds}`;
     }
 
-    componentWillMount() {
+    async componentWillMount() {
         const songsURL = 'http://localhost:3000/songs';
-        fetch(songsURL)
-        .then(res => res.json())
-        .then(json => this.props.updateSongs(json));
+        const res = await fetch(songsURL)
+        const data = await res.json();
+        this.props.updateSongs(data);
     }
 
     render() {
