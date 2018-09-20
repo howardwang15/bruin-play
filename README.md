@@ -8,7 +8,7 @@ This app was built with React.js and Node.js. Along the way, I added redux to be
 
 All audio files are stored using Google Cloud Storage and retrieved with the google cloud storage module (https://www.npmjs.com/package/@google-cloud/storage)
 
-###Getting Started
+### Getting Started
 1) `git clone git@github.com:howardwang15/bruin-play.git` 
     or
    `git clone https://github.com/howardwang15/bruin-play.git`
@@ -20,3 +20,4 @@ All audio files are stored using Google Cloud Storage and retrieved with the goo
 6) `npm start`
 
 Bruin Play will be hosted at https://locahost:9000
+Node API will be hosted at http://locahost:3000
