@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Table from './containers/table';
+import SongsScreen from './containers/songsScreen';
 import Dropzone from './containers/dropzone';
 import Bottombar from './containers/bottombar';
 import Spinner from './components/spinner';
@@ -11,7 +11,8 @@ class App extends React.Component {
     return (
       <div>
         {/* <Dropzone /> */}
-        { this.props.auth.loggedIn ? <Table /> : <LoginScreen /> } 
+        {/* { this.props.auth.loggedIn ? <Table /> : <LoginScreen /> }  */}
+        <SongsScreen />
         { this.props.spinner.on ? <Spinner /> : null }
         { this.props.songs.currentPlaying ? <Bottombar /> : null }
       </div>
