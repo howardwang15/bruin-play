@@ -1,0 +1,12 @@
+.main-screen {
+    top: 2%;
+    position: absolute;
+}
+
+.title {
+    text-align: center;
+}
+
+.table-wrapper {
+    margin: 2%;
+}

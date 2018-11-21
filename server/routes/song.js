@@ -52,7 +52,6 @@ router.get('/download', (req, res) => {
         }).pipe(res);
     })
 });
-//getFilesStream()
 
 router.get('/', (req, res) => { 
     MongoClient.connect(process.env.MONGO_URL, (err, database) => {
